@@ -1,4 +1,4 @@
 <mat-drawer-container class="container">
-    <mat-drawer mode="side" opened><app-project-component></app-project-component></mat-drawer>
-    <mat-drawer-content>Main Content</mat-drawer-content>
+    <mat-drawer mode="side" opened><app-project-component (showProjectDetails)="showDetails($event)" (selectedProject)="showTasks($event)"></app-project-component></mat-drawer>
+    <mat-drawer-content><app-task-component [project]="selectedProject$ | async"></app-task-component></mat-drawer-content>
 </mat-drawer-container>

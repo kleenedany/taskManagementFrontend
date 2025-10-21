@@ -1,4 +1,4 @@
-import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ProjectControllerService } from '../../api/project-controller/project-controller.service.gen';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
@@ -20,6 +20,9 @@ export class ProjectComponent implements OnInit {
   public projects = new Set<ProjectPO>;
   projectForm: FormGroup;
   projectsControl = new FormControl();
+
+  @Output() showProjectDetails = new EventEmitter<boolean>();
+  @Output() selectedProject = new EventEmitter<ProjectPO>();
 
   readonly createProjectDialog = inject(MatDialog);
   readonly deleteProjectDialog = inject(MatDialog);
@@ -53,7 +56,16 @@ export class ProjectComponent implements OnInit {
   }
 
   public onChange(projectId: number | undefined) {
-    console.log("onChange: ", projectId);
+    if(projectId) {
+      let project: ProjectPO | undefined;
+      this.projects.forEach(project_ => {
+        if(project_.id === projectId) {
+          project = project_;
+        }
+      });
+      this.showProjectDetails.emit(true);
+      this.selectedProject.emit(project);
+    }
   }
 
 

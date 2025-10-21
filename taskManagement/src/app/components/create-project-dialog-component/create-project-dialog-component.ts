@@ -24,9 +24,12 @@ export class CreateProjectDialogComponent {
     if(this.title.value) {
         const project: ProjectPO = {
         name: this.title.value,
+        tasks: [],
     }
    
-     const created = await lastValueFrom( this.projectService.createProject(project));
+     const created = await lastValueFrom( this.projectService.createProject(project, {
+    headers: { 'Content-Type': 'application/json' }
+  }));
      console.log("created: ", created);
 
      this.dialogRef.close();

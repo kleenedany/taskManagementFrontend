@@ -1,0 +1,27 @@
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { TaskControllerService } from '../../api/task-controller/task-controller.service.gen';
+import { firstValueFrom } from 'rxjs';
+
+@Component({
+  selector: 'app-delete-task-dialog-component',
+  imports: [MatDialogModule, MatButtonModule],
+  templateUrl: './delete-task-dialog-component.html',
+  styleUrl: './delete-task-dialog-component.scss'
+})
+export class DeleteTaskDialogComponent {
+  data = inject(MAT_DIALOG_DATA);
+  readonly dialogRef = inject(MatDialogRef<DeleteTaskDialogComponent>);
+
+  constructor(private taskService: TaskControllerService){}
+
+  public async deleteTask(): Promise<void> {
+    if(this.data.taskId) {
+      await firstValueFrom(this.taskService.deleteTask(this.data.taskId));
+    }
+
+    this.dialogRef.close();
+  }
+
+}
