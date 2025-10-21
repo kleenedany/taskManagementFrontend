@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Delete Project</h2>
+<mat-dialog-content>
+    Are you sure you want delete the selected project with id {{this.data.projectId}}?
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button matButton="elevated" (click)="deleteProject()">Yes</button>
+    <button matButton="elevated" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
