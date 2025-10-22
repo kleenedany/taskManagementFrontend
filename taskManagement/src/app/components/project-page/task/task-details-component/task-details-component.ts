@@ -2,8 +2,8 @@ import { Component, inject, Input } from '@angular/core';
 import { DeleteTaskDialogComponent } from '../delete-task-dialog-component/delete-task-dialog-component';
 import { EditTaskDialogComponent } from '../edit-task-dialog-component/edit-task-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectPO, TaskPO } from '../../api/model';
 import { MatButtonModule } from '@angular/material/button';
+import { ProjectPO, TaskPO } from '../../../../api/model';
 
 
 @Component({

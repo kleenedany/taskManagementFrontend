@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ProjectControllerService } from '../../api/project-controller/project-controller.service.gen';
-import { ProjectDto, ProjectPO } from '../../api/model';
 import { firstValueFrom } from 'rxjs';
+import { ProjectControllerService } from '../../../../api/project-controller/project-controller.service.gen';
+import { ProjectDto } from '../../../../api/model';
 
 @Component({
   selector: 'app-update-project-dialog',

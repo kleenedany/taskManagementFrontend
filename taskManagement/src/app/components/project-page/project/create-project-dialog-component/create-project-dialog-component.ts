@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ProjectControllerService } from '../../api/project-controller/project-controller.service.gen';
-import { ProjectPO } from '../../api/model';
 import { lastValueFrom } from 'rxjs';
+import { ProjectControllerService } from '../../../../api/project-controller/project-controller.service.gen';
+import { ProjectPO } from '../../../../api/model';
 
 @Component({
   selector: 'app-create-project-dialog-component',

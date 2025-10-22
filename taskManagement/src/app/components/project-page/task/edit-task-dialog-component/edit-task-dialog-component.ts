@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../create-task-dialog-component/create-task-dialog-component';
-import { TaskControllerService } from '../../api/task-controller/task-controller.service.gen';
-import { TaskDto, TaskPO } from '../../api/model';
 import { lastValueFrom } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TaskControllerService } from '../../../../api/task-controller/task-controller.service.gen';
+import { TaskDto } from '../../../../api/model';
 
 @Component({
   selector: 'app-edit-task-dialog-component',

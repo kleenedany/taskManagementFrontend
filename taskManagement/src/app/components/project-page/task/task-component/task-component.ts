@@ -1,16 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { TaskControllerService } from '../../api/task-controller/task-controller.service.gen';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../create-task-dialog-component/create-task-dialog-component';
-import { DeleteTaskDialogComponent } from '../delete-task-dialog-component/delete-task-dialog-component';
-import { EditTaskDialogComponent } from '../edit-task-dialog-component/edit-task-dialog-component';
-import { ProjectPO, TaskPO } from '../../api/model';
-import { firstValueFrom } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
-import { ProjectControllerService } from '../../api/project-controller/project-controller.service.gen';
 import { MatListModule } from '@angular/material/list';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDetailsComponent } from '../task-details-component/task-details-component';
+import { ProjectPO, TaskPO } from '../../../../api/model';
+import { TaskControllerService } from '../../../../api/task-controller/task-controller.service.gen';
+import { ProjectControllerService } from '../../../../api/project-controller/project-controller.service.gen';
 
 @Component({
   selector: 'app-task-component',

@@ -1,14 +1,14 @@
 import { Component, EventEmitter, inject, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ProjectControllerService } from '../../api/project-controller/project-controller.service.gen';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import { CreateProjectDialogComponent } from '../create-project-dialog-component/create-project-dialog-component';
-import { ProjectPO } from '../../api/model';
 import { firstValueFrom } from 'rxjs';
 import { MatListModule } from '@angular/material/list';
 import { DeleteProjectDialog } from '../delete-project-dialog/delete-project-dialog';
 import { UpdateProjectDialog } from '../update-project-dialog/update-project-dialog';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectPO } from '../../../../api/model';
+import { ProjectControllerService } from '../../../../api/project-controller/project-controller.service.gen';
 
 @Component({
   selector: 'app-project-component',
