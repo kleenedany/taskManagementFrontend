@@ -18,10 +18,10 @@ import { firstValueFrom } from 'rxjs';
 })
 export class TaskDetailsComponent{
 
-  readonly deleteTaskDialog = inject(MatDialog);
-  readonly editTaskDialog = inject(MatDialog);
-  task: TaskDto | undefined | null;
-  project: ProjectDto | undefined | null;
+  private readonly _deleteTaskDialog = inject(MatDialog);
+  private readonly _editTaskDialog = inject(MatDialog);
+  public task: TaskDto | undefined | null;
+  private _project: ProjectDto | undefined | null;
 
   @Input()
   set selectedTask(value: TaskDto | null) {
@@ -30,7 +30,7 @@ export class TaskDetailsComponent{
 
   @Input()
   set selectedProject(value: ProjectDto | undefined | null) {
-    this.project = value;
+    this._project = value;
   }
 
   @Output()
@@ -42,19 +42,26 @@ export class TaskDetailsComponent{
    
 
     public openDeleteTaskDialog() {
-    this.deleteTaskDialog.open(DeleteTaskDialogComponent, {
+    const dialogRef = this._deleteTaskDialog.open(DeleteTaskDialogComponent, {
       data: {
         taskId: this.task?.id,
-        project: this.project
+        project: this._project
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(async () => {
+      await this._updateTaskDetails();
+      if(this.task) {
+        this.updateTask.emit(this.task);
       }
     });
   }
 
   public openEditTaskDialog() {
-    const dialogRef = this.editTaskDialog.open(CreateUpdateTaskDialogComponent, {
+    const dialogRef = this._editTaskDialog.open(CreateUpdateTaskDialogComponent, {
       data: {
         taskId: this.task?.id,
-        project: this.project,
+        project: this._project,
         task: this.task,
       }
     });

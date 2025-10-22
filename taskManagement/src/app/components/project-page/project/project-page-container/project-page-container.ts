@@ -14,10 +14,10 @@ import { TaskComponent } from '../../task/task-component/task-component';
 })
 export class ProjectPageContainer {
   public selectedProjectSubject = new BehaviorSubject<ProjectDto | null>(null);
-  selectedProject$ = this.selectedProjectSubject.asObservable();
+  public selectedProject$ = this.selectedProjectSubject.asObservable();
 
 
-  showTasks(project: ProjectDto) {
+  public showTasks(project: ProjectDto) {
     this.selectedProjectSubject.next(project);
   }
 

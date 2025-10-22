@@ -11,8 +11,8 @@ import { TaskControllerService } from '../../../../api/task-controller/task-cont
   styleUrl: './delete-task-dialog-component.scss'
 })
 export class DeleteTaskDialogComponent {
-  data = inject(MAT_DIALOG_DATA);
-  readonly dialogRef = inject(MatDialogRef<DeleteTaskDialogComponent>);
+  public data = inject(MAT_DIALOG_DATA);
+  private readonly _dialogRef = inject(MatDialogRef<DeleteTaskDialogComponent>);
 
   constructor(private taskService: TaskControllerService){}
 
@@ -21,7 +21,7 @@ export class DeleteTaskDialogComponent {
       await firstValueFrom(this.taskService.deleteTask(this.data.taskId));
     }
 
-    this.dialogRef.close();
+    this._dialogRef.close();
   }
 
 }

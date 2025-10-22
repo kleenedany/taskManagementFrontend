@@ -12,8 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './delete-project-dialog.scss'
 })
 export class DeleteProjectDialog {
-  data = inject(MAT_DIALOG_DATA);
-  readonly dialogRef = inject(MatDialogRef<DeleteProjectDialog>);
+  public data = inject(MAT_DIALOG_DATA);
+  private readonly _dialogRef = inject(MatDialogRef<DeleteProjectDialog>);
 
   constructor(private projectService: ProjectControllerService){}
   
@@ -23,7 +23,7 @@ export class DeleteProjectDialog {
     await firstValueFrom(this.projectService.deleteProject(this.data.projectId));
     }
 
-    this.dialogRef.close();
+    this._dialogRef.close();
   }
 
   

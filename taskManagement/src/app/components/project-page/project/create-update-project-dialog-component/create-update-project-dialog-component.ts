@@ -15,20 +15,20 @@ import { ProjectDto } from '../../../../api/model';
   styleUrl: './create-update-project-dialog-component.scss'
 })
 export class CreateUpdateProjectDialogComponent implements OnInit {
-  readonly title = new FormControl('', [Validators.required]);
-  readonly dialogRef = inject(MatDialogRef<CreateUpdateProjectDialogComponent>);
-  data = inject(MAT_DIALOG_DATA);
+  public title = new FormControl('', [Validators.required]);
+  private readonly _dialogRef = inject(MatDialogRef<CreateUpdateProjectDialogComponent>);
+  private _data = inject(MAT_DIALOG_DATA);
   public showCreateDialog: boolean = true;
   public projectTitle: String | undefined;
 
 
    constructor(private projectService: ProjectControllerService) {}
  
-   async ngOnInit(): Promise<void> {
-    if(this.data && this.data.projectId) {
+   public async ngOnInit(): Promise<void> {
+    if(this._data && this._data.projectId) {
       this.showCreateDialog = false;
       
-      const project = await firstValueFrom(this.projectService.loadProject(this.data.projectId));
+      const project = await firstValueFrom(this.projectService.loadProject(this._data.projectId));
       this.projectTitle = project.title;
     }
   }
@@ -42,11 +42,9 @@ export class CreateUpdateProjectDialogComponent implements OnInit {
     if(this.showCreateDialog) {
        await firstValueFrom( this.projectService.createProject(project));
     } else {
-       await firstValueFrom(this.projectService.updateProject(this.data.projectId, project));
+       await firstValueFrom(this.projectService.updateProject(this._data.projectId, project));
     }
-    
-     this.dialogRef.close();
-
+     this._dialogRef.close();
     }
   }
 }

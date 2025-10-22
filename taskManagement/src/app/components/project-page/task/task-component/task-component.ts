@@ -20,10 +20,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './task-component.scss'
 })
 export class TaskComponent {
-  readonly createTaskDialog = inject(MatDialog);
+  private readonly _createTaskDialog = inject(MatDialog);
   public tasks: TaskDto[] | undefined = [];
-  taskForm: FormGroup;
-  taskControl = new FormControl();
+  public taskForm: FormGroup;
+  public taskControl = new FormControl();
   public selectedTaskSubject = new BehaviorSubject<TaskDto | null>(null);
   public selectedProject: ProjectDto | null | undefined;
   public selectedTask$ = this.selectedTaskSubject.asObservable();
@@ -47,7 +47,7 @@ export class TaskComponent {
   }
 
   public openCreateTaskDialog() {
-    const dialogRef = this.createTaskDialog.open(CreateUpdateTaskDialogComponent, {
+    const dialogRef = this._createTaskDialog.open(CreateUpdateTaskDialogComponent, {
       data: {
         project: this.selectedProject
       }

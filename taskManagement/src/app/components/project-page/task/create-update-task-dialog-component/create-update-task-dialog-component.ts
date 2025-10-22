@@ -17,10 +17,10 @@ import { UserControllerService } from '../../../../api/user-controller/user-cont
   styleUrl: './create-update-task-dialog-component.scss'
 })
 export class CreateUpdateTaskDialogComponent implements OnInit {
-  readonly title = new FormControl('', [Validators.required]);
-  readonly description = new FormControl('');
-  readonly dialogRef = inject(MatDialogRef<CreateUpdateTaskDialogComponent>);
-  data = inject(MAT_DIALOG_DATA);
+  public title = new FormControl('', [Validators.required]);
+  public description = new FormControl('');
+  public dialogRef = inject(MatDialogRef<CreateUpdateTaskDialogComponent>);
+  private _data = inject(MAT_DIALOG_DATA);
   public statusEnum = Object.values(TaskDtoStatus);
   public selectedStatus: TaskDtoStatus | undefined;
   public userList: UserDto[] = [];
@@ -34,13 +34,13 @@ export class CreateUpdateTaskDialogComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.userList = await firstValueFrom(this.userService.loadAllUsers());
-    if(this.data && this.data.task) {
+    if(this._data && this._data.task) {
       this.showCreateDialog = false;
-      this.selectedStatus = this.data.task.status;
+      this.selectedStatus = this._data.task.status;
       this.selectedUser = this.userList.filter(userFromList =>
-      this.data.task.users.some((user: { id: number | undefined; })  => user.id === userFromList.id));
-      this.title.setValue(this.data.task.title);
-      this.description.setValue(this.data.task.description);
+      this._data.task.users.some((user: { id: number | undefined; })  => user.id === userFromList.id));
+      this.title.setValue(this._data.task.title);
+      this.description.setValue(this._data.task.description);
     }
   }
 
@@ -49,15 +49,15 @@ export class CreateUpdateTaskDialogComponent implements OnInit {
       const task: TaskDto = {
       title: this.title.value,
       description: this.description.value as string | undefined,
-      projectId: this.data.project.id,
+      projectId: this._data.project.id,
       status: this.selectedStatus,
       users: this.selectedUser,
       }
 
       if(this.showCreateDialog) {
-        await firstValueFrom(this.taskService.createTask(this.data.project.id, task));
+        await firstValueFrom(this.taskService.createTask(this._data.project.id, task));
       } else {
-         await firstValueFrom(this.taskService.updateTask(this.data.taskId, task));
+         await firstValueFrom(this.taskService.updateTask(this._data.taskId, task));
       } 
       
       this.dialogRef.close();
