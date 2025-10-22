@@ -25,7 +25,7 @@ import {
 } from 'rxjs';
 
 import type {
-  UserPO
+  UserDto
 } from '.././model';
 
 
@@ -55,37 +55,27 @@ interface HttpClientOptions {
 @Injectable({ providedIn: 'root' })
 export class UserControllerService {
   private readonly http = inject(HttpClient);
- loadAllUser<TData = UserPO[]>( options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- loadAllUser<TData = UserPO[]>( options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- loadAllUser<TData = UserPO[]>( options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  loadAllUser<TData = UserPO[]>(
-     options?: HttpClientOptions & { observe?: any }): Observable<any> {
+ loadUser<TData = UserDto>(id: number, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ loadUser<TData = UserDto>(id: number, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ loadUser<TData = UserDto>(id: number, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  loadUser<TData = UserDto>(
+    id: number, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `http://localhost:8080/user`,options
+      `http://localhost:8080/users/${id}`,options
     );
   }
- createUser<TData = UserPO>(userPO: UserPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- createUser<TData = UserPO>(userPO: UserPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- createUser<TData = UserPO>(userPO: UserPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  createUser<TData = UserPO>(
-    userPO: UserPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
-    return this.http.post<TData>(
-      `http://localhost:8080/user`,
-      userPO,options
-    );
-  }
- updateUser<TData = UserPO>(id: number,
-    userPO: UserPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- updateUser<TData = UserPO>(id: number,
-    userPO: UserPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- updateUser<TData = UserPO>(id: number,
-    userPO: UserPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  updateUser<TData = UserPO>(
+ updateUser<TData = void>(id: number,
+    userDto: UserDto, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ updateUser<TData = void>(id: number,
+    userDto: UserDto, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ updateUser<TData = void>(id: number,
+    userDto: UserDto, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  updateUser<TData = void>(
     id: number,
-    userPO: UserPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
-    return this.http.post<TData>(
-      `http://localhost:8080/user/${id}`,
-      userPO,options
+    userDto: UserDto, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.put<TData>(
+      `http://localhost:8080/users/${id}`,
+      userDto,options
     );
   }
  deleteUser<TData = void>(id: number, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -94,12 +84,32 @@ export class UserControllerService {
   deleteUser<TData = void>(
     id: number, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.delete<TData>(
-      `http://localhost:8080/user/${id}`,options
+      `http://localhost:8080/users/${id}`,options
+    );
+  }
+ loadAllUsers<TData = UserDto[]>( options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ loadAllUsers<TData = UserDto[]>( options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ loadAllUsers<TData = UserDto[]>( options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  loadAllUsers<TData = UserDto[]>(
+     options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.get<TData>(
+      `http://localhost:8080/users`,options
+    );
+  }
+ createUser<TData = void>(userDto: UserDto, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ createUser<TData = void>(userDto: UserDto, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ createUser<TData = void>(userDto: UserDto, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  createUser<TData = void>(
+    userDto: UserDto, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.post<TData>(
+      `http://localhost:8080/users`,
+      userDto,options
     );
   }
 };
 
-export type LoadAllUserClientResult = NonNullable<UserPO[]>
-export type CreateUserClientResult = NonNullable<UserPO>
-export type UpdateUserClientResult = NonNullable<UserPO>
+export type LoadUserClientResult = NonNullable<UserDto>
+export type UpdateUserClientResult = NonNullable<void>
 export type DeleteUserClientResult = NonNullable<void>
+export type LoadAllUsersClientResult = NonNullable<UserDto[]>
+export type CreateUserClientResult = NonNullable<void>

@@ -25,7 +25,7 @@ import {
 } from 'rxjs';
 
 import type {
-  ProjectPO
+  ProjectDto
 } from '.././model';
 
 
@@ -55,37 +55,27 @@ interface HttpClientOptions {
 @Injectable({ providedIn: 'root' })
 export class ProjectControllerService {
   private readonly http = inject(HttpClient);
- loadAllProjects<TData = ProjectPO[]>( options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- loadAllProjects<TData = ProjectPO[]>( options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- loadAllProjects<TData = ProjectPO[]>( options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  loadAllProjects<TData = ProjectPO[]>(
-     options?: HttpClientOptions & { observe?: any }): Observable<any> {
+ loadProject<TData = ProjectDto>(id: number, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ loadProject<TData = ProjectDto>(id: number, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ loadProject<TData = ProjectDto>(id: number, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  loadProject<TData = ProjectDto>(
+    id: number, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `http://localhost:8080/projects`,options
+      `http://localhost:8080/projects/${id}`,options
     );
   }
- createProject<TData = ProjectPO>(projectPO: ProjectPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- createProject<TData = ProjectPO>(projectPO: ProjectPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- createProject<TData = ProjectPO>(projectPO: ProjectPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  createProject<TData = ProjectPO>(
-    projectPO: ProjectPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
-    return this.http.post<TData>(
-      `http://localhost:8080/projects`,
-      projectPO,options
-    );
-  }
- updateProject<TData = ProjectPO>(id: number,
-    projectPO: ProjectPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- updateProject<TData = ProjectPO>(id: number,
-    projectPO: ProjectPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- updateProject<TData = ProjectPO>(id: number,
-    projectPO: ProjectPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  updateProject<TData = ProjectPO>(
+ updateProject<TData = void>(id: number,
+    projectDto: ProjectDto, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ updateProject<TData = void>(id: number,
+    projectDto: ProjectDto, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ updateProject<TData = void>(id: number,
+    projectDto: ProjectDto, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  updateProject<TData = void>(
     id: number,
-    projectPO: ProjectPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
-    return this.http.post<TData>(
+    projectDto: ProjectDto, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.put<TData>(
       `http://localhost:8080/projects/${id}`,
-      projectPO,options
+      projectDto,options
     );
   }
  deleteProject<TData = void>(id: number, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -97,9 +87,29 @@ export class ProjectControllerService {
       `http://localhost:8080/projects/${id}`,options
     );
   }
+ loadAllProjects<TData = ProjectDto[]>( options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ loadAllProjects<TData = ProjectDto[]>( options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ loadAllProjects<TData = ProjectDto[]>( options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  loadAllProjects<TData = ProjectDto[]>(
+     options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.get<TData>(
+      `http://localhost:8080/projects`,options
+    );
+  }
+ createProject<TData = void>(projectDto: ProjectDto, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ createProject<TData = void>(projectDto: ProjectDto, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ createProject<TData = void>(projectDto: ProjectDto, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  createProject<TData = void>(
+    projectDto: ProjectDto, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.post<TData>(
+      `http://localhost:8080/projects`,
+      projectDto,options
+    );
+  }
 };
 
-export type LoadAllProjectsClientResult = NonNullable<ProjectPO[]>
-export type CreateProjectClientResult = NonNullable<ProjectPO>
-export type UpdateProjectClientResult = NonNullable<ProjectPO>
+export type LoadProjectClientResult = NonNullable<ProjectDto>
+export type UpdateProjectClientResult = NonNullable<void>
 export type DeleteProjectClientResult = NonNullable<void>
+export type LoadAllProjectsClientResult = NonNullable<ProjectDto[]>
+export type CreateProjectClientResult = NonNullable<void>

@@ -5,14 +5,11 @@
  * OpenAPI spec version: v0
  */
 
-/**
- * Status of the task. Available status are OPEN, IN PROGRESS and DONE
- */
-export type TaskPOStatus = typeof TaskPOStatus[keyof typeof TaskPOStatus];
+export type TaskDtoStatus = typeof TaskDtoStatus[keyof typeof TaskDtoStatus];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TaskPOStatus = {
+export const TaskDtoStatus = {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',

@@ -7,7 +7,10 @@
 import type { TaskPO } from './taskPO';
 
 export interface ProjectPO {
-  id?: number;
-  name?: string;
+  /** Unique identifier of the project */
+  readonly id?: number;
+  /** Title of the project */
+  title: string;
+  /** List of tasks belonging to the project */
   tasks?: TaskPO[];
 }

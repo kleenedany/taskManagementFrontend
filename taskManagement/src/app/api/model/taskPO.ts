@@ -9,10 +9,16 @@ import type { ProjectPO } from './projectPO';
 import type { UserPO } from './userPO';
 
 export interface TaskPO {
-  id?: number;
-  title?: string;
+  /** Unique identifier of the task */
+  readonly id?: number;
+  /** Title of the task */
+  title: string;
+  /** Description of the task */
   description?: string;
-  status?: TaskPOStatus;
+  /** Status of the task. Available status are OPEN, IN PROGRESS and DONE */
+  status: TaskPOStatus;
+  /** The project belonging to the task */
   project?: ProjectPO;
+  /** List of users belonging to the task */
   users?: UserPO[];
 }

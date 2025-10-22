@@ -25,8 +25,7 @@ import {
 } from 'rxjs';
 
 import type {
-  ProjectPO,
-  TaskPO
+  TaskDto
 } from '.././model';
 
 
@@ -56,37 +55,27 @@ interface HttpClientOptions {
 @Injectable({ providedIn: 'root' })
 export class TaskControllerService {
   private readonly http = inject(HttpClient);
- loadProjectTasks<TData = TaskPO[]>(projectPO: ProjectPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- loadProjectTasks<TData = TaskPO[]>(projectPO: ProjectPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- loadProjectTasks<TData = TaskPO[]>(projectPO: ProjectPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  loadProjectTasks<TData = TaskPO[]>(
-    projectPO: ProjectPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+ loadTask<TData = TaskDto>(id: number, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ loadTask<TData = TaskDto>(id: number, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ loadTask<TData = TaskDto>(id: number, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  loadTask<TData = TaskDto>(
+    id: number, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.get<TData>(
-      `http://localhost:8080/task`,options
+      `http://localhost:8080/tasks/${id}`,options
     );
   }
- createTask<TData = TaskPO>(taskPO: TaskPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- createTask<TData = TaskPO>(taskPO: TaskPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- createTask<TData = TaskPO>(taskPO: TaskPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  createTask<TData = TaskPO>(
-    taskPO: TaskPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
-    return this.http.post<TData>(
-      `http://localhost:8080/task`,
-      taskPO,options
-    );
-  }
- updateTask<TData = TaskPO>(id: number,
-    taskPO: TaskPO, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
- updateTask<TData = TaskPO>(id: number,
-    taskPO: TaskPO, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
- updateTask<TData = TaskPO>(id: number,
-    taskPO: TaskPO, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
-  updateTask<TData = TaskPO>(
+ updateTask<TData = void>(id: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ updateTask<TData = void>(id: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ updateTask<TData = void>(id: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  updateTask<TData = void>(
     id: number,
-    taskPO: TaskPO, options?: HttpClientOptions & { observe?: any }): Observable<any> {
-    return this.http.post<TData>(
-      `http://localhost:8080/task/${id}`,
-      taskPO,options
+    taskDto: TaskDto, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.put<TData>(
+      `http://localhost:8080/tasks/${id}`,
+      taskDto,options
     );
   }
  deleteTask<TData = void>(id: number, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
@@ -95,12 +84,26 @@ export class TaskControllerService {
   deleteTask<TData = void>(
     id: number, options?: HttpClientOptions & { observe?: any }): Observable<any> {
     return this.http.delete<TData>(
-      `http://localhost:8080/task/${id}`,options
+      `http://localhost:8080/tasks/${id}`,options
+    );
+  }
+ createTask<TData = void>(projectId: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe?: 'body' }): Observable<TData>;
+ createTask<TData = void>(projectId: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe: 'events' }): Observable<HttpEvent<TData>>;
+ createTask<TData = void>(projectId: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe: 'response' }): Observable<AngularHttpResponse<TData>>;
+  createTask<TData = void>(
+    projectId: number,
+    taskDto: TaskDto, options?: HttpClientOptions & { observe?: any }): Observable<any> {
+    return this.http.post<TData>(
+      `http://localhost:8080/projects/${projectId}/tasks`,
+      taskDto,options
     );
   }
 };
 
-export type LoadProjectTasksClientResult = NonNullable<TaskPO[]>
-export type CreateTaskClientResult = NonNullable<TaskPO>
-export type UpdateTaskClientResult = NonNullable<TaskPO>
+export type LoadTaskClientResult = NonNullable<TaskDto>
+export type UpdateTaskClientResult = NonNullable<void>
 export type DeleteTaskClientResult = NonNullable<void>
+export type CreateTaskClientResult = NonNullable<void>

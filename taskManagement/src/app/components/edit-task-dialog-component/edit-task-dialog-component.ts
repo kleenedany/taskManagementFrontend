@@ -3,7 +3,7 @@ import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../create-task-dialog-component/create-task-dialog-component';
 import { TaskControllerService } from '../../api/task-controller/task-controller.service.gen';
-import { TaskPO } from '../../api/model';
+import { TaskDto, TaskPO } from '../../api/model';
 import { lastValueFrom } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,10 +26,10 @@ export class EditTaskDialogComponent {
 
   public async saveTask(): Promise<void> {
     if(this.title.value && this.description.value) {
-      const task: TaskPO = {
+      const task: TaskDto= {
       title: this.title.value,
       description: this.description.value,
-      project: this.data.project,
+      projectId: this.data.project.id,
       }
       const created = await lastValueFrom(this.taskService.updateTask(this.data.taskId, task));
       console.log("created: ", created);

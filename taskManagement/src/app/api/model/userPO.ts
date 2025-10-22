@@ -7,8 +7,11 @@
 import type { TaskPO } from './taskPO';
 
 export interface UserPO {
-  id?: number;
-  firstName?: string;
-  lastName?: string;
+  /** Unique identifier of the user */
+  readonly id?: number;
+  /** Firstname of the user */
+  firstName: string;
+  /** Lastname of the user */
+  lastName: string;
   tasks?: TaskPO[];
 }

@@ -5,7 +5,11 @@
  * OpenAPI spec version: v0
  */
 
+export * from './projectDto';
 export * from './projectPO';
+export * from './taskDto';
+export * from './taskDtoStatus';
 export * from './taskPO';
 export * from './taskPOStatus';
+export * from './userDto';
 export * from './userPO';

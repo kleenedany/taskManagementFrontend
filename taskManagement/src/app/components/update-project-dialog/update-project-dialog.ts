@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProjectControllerService } from '../../api/project-controller/project-controller.service.gen';
-import { ProjectPO } from '../../api/model';
+import { ProjectDto, ProjectPO } from '../../api/model';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -23,8 +23,8 @@ export class UpdateProjectDialog {
 
   public async saveProject(): Promise<void> {
     if(this.title.value) {
-      const project:  ProjectPO = {
-        name: this.title.value,
+      const project:  ProjectDto = {
+        title: this.title.value,
         tasks: [],
       }
 

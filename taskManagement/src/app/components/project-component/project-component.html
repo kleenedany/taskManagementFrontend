@@ -10,7 +10,7 @@
     <form [formGroup]="projectForm">
     <mat-selection-list #projectsList [formControl]="projectsControl" name="projects" [multiple]="false">
         @for(project of this.projects; track project) {
-            <mat-list-option [value]="project.id" (click)="onChange(project.id)">{{project.name}}</mat-list-option>
+            <mat-list-option [value]="project.id" (click)="onChange(project.id)">{{project.title}}</mat-list-option>
         }
     </mat-selection-list>
 

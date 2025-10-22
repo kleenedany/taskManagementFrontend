@@ -23,7 +23,7 @@ export class CreateProjectDialogComponent {
   public async saveProject(): Promise<void> {
     if(this.title.value) {
         const project: ProjectPO = {
-        name: this.title.value,
+        title: this.title.value,
         tasks: [],
     }
    

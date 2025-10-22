@@ -11,59 +11,37 @@
     }
   ],
   "paths": {
-    "/user": {
+    "/users/{id}": {
       "get": {
         "tags": [
           "user-controller"
         ],
-        "operationId": "loadAllUser",
+        "operationId": "loadUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserPO"
-                  }
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "createUser",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserPO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserPO"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/{id}": {
-      "post": {
+      "put": {
         "tags": [
           "user-controller"
         ],
@@ -83,7 +61,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserPO"
+                "$ref": "#/components/schemas/UserDto"
               }
             }
           },
@@ -91,14 +69,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserPO"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -125,69 +96,37 @@
         }
       }
     },
-    "/task": {
+    "/tasks/{id}": {
       "get": {
         "tags": [
           "task-controller"
         ],
-        "operationId": "loadProjectTasks",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectPO"
-              }
+        "operationId": "loadTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TaskPO"
-                  }
+                  "$ref": "#/components/schemas/TaskDto"
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "tags": [
-          "task-controller"
-        ],
-        "operationId": "createTask",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaskPO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaskPO"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/task/{id}": {
-      "post": {
+      "put": {
         "tags": [
           "task-controller"
         ],
@@ -207,7 +146,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskPO"
+                "$ref": "#/components/schemas/TaskDto"
               }
             }
           },
@@ -215,14 +154,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaskPO"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -249,59 +181,37 @@
         }
       }
     },
-    "/projects": {
+    "/projects/{id}": {
       "get": {
         "tags": [
           "project-controller"
         ],
-        "operationId": "loadAllProjects",
+        "operationId": "loadProject",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectPO"
-                  }
+                  "$ref": "#/components/schemas/ProjectDto"
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "tags": [
-          "project-controller"
-        ],
-        "operationId": "createProject",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectPO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectPO"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/projects/{id}": {
-      "post": {
+      "put": {
         "tags": [
           "project-controller"
         ],
@@ -321,7 +231,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectPO"
+                "$ref": "#/components/schemas/ProjectDto"
               }
             }
           },
@@ -329,14 +239,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectPO"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -362,29 +265,133 @@
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "ProjectPO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "tasks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TaskPO"
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "loadAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              }
             }
           }
         }
       },
-      "TaskPO": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "tags": [
+          "project-controller"
+        ],
+        "operationId": "loadAllProjects",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "project-controller"
+        ],
+        "operationId": "createProject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/projects/{projectId}/tasks": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "createTask",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TaskDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -405,18 +412,19 @@
               "DONE"
             ]
           },
-          "project": {
-            "$ref": "#/components/schemas/ProjectPO"
+          "projectId": {
+            "type": "integer",
+            "format": "int32"
           },
           "users": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserPO"
+              "$ref": "#/components/schemas/UserDto"
             }
           }
         }
       },
-      "UserPO": {
+      "UserDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -432,7 +440,25 @@
           "tasks": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/TaskPO"
+              "$ref": "#/components/schemas/TaskDto"
+            }
+          }
+        }
+      },
+      "ProjectDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
             }
           }
         }
