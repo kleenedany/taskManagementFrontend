@@ -19,7 +19,12 @@
         <mat-label>Status</mat-label>
         <mat-select [(ngModel)]="selectedStatus" name="status" required>
             @for (status of statusEnum; track status) {
-                <mat-option [value]="this.selectedStatus">{{status}}</mat-option>
+                @if(this.showCreateDialog) {
+                     <mat-option [value]="status">{{status}}</mat-option>
+                } @else {
+                     <mat-option [value]="this.selectedStatus">{{status}}</mat-option>
+                }
+               
             }
         </mat-select>
     </mat-form-field>
@@ -29,6 +34,7 @@
         <mat-select [(ngModel)]="selectedUser" name="user" multiple required>
             @for(user of userList; track user) {
                 <mat-option [value]="user">{{user.firstName}} {{user.lastName}}</mat-option>
+    
             }
         </mat-select>
     </mat-form-field> 

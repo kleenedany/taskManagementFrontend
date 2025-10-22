@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+  gap: 50px; 
+}
+
+.section-task-list {
+      flex: 0 0 40%; 
+}
+
+.section-task-details {
+     flex: 1; 
+}

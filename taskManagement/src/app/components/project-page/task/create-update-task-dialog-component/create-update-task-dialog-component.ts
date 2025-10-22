@@ -36,11 +36,11 @@ export class CreateUpdateTaskDialogComponent implements OnInit {
     this.userList = await firstValueFrom(this.userService.loadAllUsers());
     if(this.data && this.data.task) {
       this.showCreateDialog = false;
-      this.taskTitle = this.data.task.title;
-      this.taskDescription = this.data.task.title;
       this.selectedStatus = this.data.task.status;
-      this.selectedUser = this.data.task.users;
-     
+      this.selectedUser = this.userList.filter(userFromList =>
+      this.data.task.users.some((user: { id: number | undefined; })  => user.id === userFromList.id));
+      this.title.setValue(this.data.task.title);
+      this.description.setValue(this.data.task.description);
     }
   }
 

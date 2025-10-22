@@ -1,22 +1,25 @@
-<section>
-    <h2>Project Details</h2>
-    <button matMiniFab (click)="openCreateTaskDialog()"><mat-icon>add</mat-icon></button>
-</section> 
+<div class="container">
+    <section class="section-task-list">
+            <section>
+                <h2>Project Details</h2>
+                <button matMiniFab (click)="openCreateTaskDialog()"><mat-icon>add</mat-icon></button>
+            </section>
 
-<section style="float:left; width: 65%">
-    <form [formGroup]="taskForm">
-    <mat-selection-list #taskList [formControl]="taskControl" name="tasks" [multiple]="false">
-        @for(task of this.tasks; track task) {
-            <mat-list-option (click)="onChange(task.id)">{{task.title}}</mat-list-option>
+    <section>   
+            <form [formGroup]="taskForm">
+            <mat-selection-list #taskList [formControl]="taskControl" name="tasks" [multiple]="false">
+                @for(task of this.tasks; track task) {
+                    <mat-list-option (click)="onChange(task.id)" [value]="task.id">{{task.title}}</mat-list-option>
+                }
+            </mat-selection-list>
+            </form>
+        </section>   
+    </section>
+
+    <section class="section-task-details">
+        @if((this.selectedTask$  | async) !== null) {
+            <app-task-details-component [selectedTask]="this.selectedTask$ | async" [selectedProject]="this.selectedProject" (updateTask)="updateTask($event)"></app-task-details-component>
         }
-    </mat-selection-list>
-    </form>
-
-</section>
-
-<section>
-    @if(this.selectedTask) {
-         <app-task-details-component [selectedTask]="this.selectedTask" [selectedProject]="this.selectedProject"></app-task-details-component>
-    }
-</section>
+    </section>
+</div>
  

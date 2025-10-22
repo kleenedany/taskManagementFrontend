@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -8,13 +8,14 @@ import { ProjectDto, TaskDto } from '../../../../api/model';
 import { TaskControllerService } from '../../../../api/task-controller/task-controller.service.gen';
 import { ProjectControllerService } from '../../../../api/project-controller/project-controller.service.gen';
 import { MatIconModule } from '@angular/material/icon';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CreateUpdateTaskDialogComponent } from '../create-update-task-dialog-component/create-update-task-dialog-component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-component',
-  imports: [MatButtonModule, MatListModule, FormsModule, ReactiveFormsModule, TaskDetailsComponent, MatIconModule, MatGridListModule],
+  imports: [MatButtonModule, MatListModule, FormsModule, ReactiveFormsModule, TaskDetailsComponent, MatIconModule, MatGridListModule, CommonModule],
   templateUrl: './task-component.html',
   styleUrl: './task-component.scss'
 })
@@ -23,9 +24,11 @@ export class TaskComponent {
   public tasks: TaskDto[] | undefined = [];
   taskForm: FormGroup;
   taskControl = new FormControl();
+  public selectedTaskSubject = new BehaviorSubject<TaskDto | null>(null);
   public selectedProject: ProjectDto | null | undefined;
-  public selectedTask: TaskDto | undefined;
+  public selectedTask$ = this.selectedTaskSubject.asObservable();
   private _changeDetection = inject(ChangeDetectorRef);
+
 
   @Input() set project(value: ProjectDto | null) {
     this.tasks = []
@@ -52,13 +55,18 @@ export class TaskComponent {
 
     dialogRef.afterClosed().subscribe(async () => {
       await this._updateTasks();
-    })
+    });
   }
 
   public async onChange(taskId: number | undefined) {
     if(taskId) {
-      this.selectedTask = await firstValueFrom(this.taskService.loadTask(taskId));
+      const taskDetails = await firstValueFrom(this.taskService.loadTask(taskId));
+      this.selectedTaskSubject.next(taskDetails);
     }
+  }
+
+  public async updateTask(task: TaskDto) {
+    await this._updateTasks();
   }
 
   private async _updateTasks() {
@@ -68,6 +76,11 @@ export class TaskComponent {
         this.project = { ...updatedProject};
         if(updatedProject.tasks) {
             this.tasks = [ ...updatedProject.tasks];
+            this.tasks.forEach((task) => {
+              if(this.selectedTaskSubject.value?.id === task.id) {
+                this.taskControl.setValue(task.id);
+              }
+            })
         }
       }
       this._changeDetection.detectChanges();
@@ -79,5 +92,4 @@ export class TaskComponent {
   private _updateProject(): void {
     this.tasks = this.selectedProject?.tasks ?? [];
   }
-
 }

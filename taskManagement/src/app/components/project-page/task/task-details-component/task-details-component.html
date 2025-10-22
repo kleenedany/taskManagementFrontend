@@ -1,15 +1,30 @@
-    <h2>Task Details</h2>
-    <button matButton="elevated" (click)="openDeleteTaskDialog()">Delete Task</button>
-    <button matButton="elevated" (click)="openEditTaskDialog()">Edit Task</button>
 
-    <section>
-         @if(this.task && this.task.description) {
-             {{this.task.description}}
-        }   
+        <h2>Task Details</h2>
+        <button matMiniFab (click)="openDeleteTaskDialog()" class="margin-right"><mat-icon>delete</mat-icon></button>
+        <button matMiniFab (click)="openEditTaskDialog()"><mat-icon>edit</mat-icon></button>
 
-        @if(this.task && this.task.users) {
-            {{this.task.users}}
-        }
-    </section>
+        <section>
+            @if(this.task && this.task.description) {
+                <h2>Description</h2>
+                {{this.task.description}}
+            }   
+        </section>
+
+        <section> 
+            @if(this.task && this.task.status) {
+                <h2>Status</h2>
+                {{this.task.status}}
+            }
+        </section>
+
+        <section>
+            @if(this.task && this.task.users) {
+                <h2>User</h2>
+                @for(user of this.task.users; track user) {
+                    <mat-chip class="margin-right">{{user.firstName}} {{user.lastName}}</mat-chip> 
+                }
+            
+            }
+        </section>
 
    
