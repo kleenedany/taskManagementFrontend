@@ -1,9 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { DeleteTaskDialogComponent } from '../delete-task-dialog-component/delete-task-dialog-component';
-import { EditTaskDialogComponent } from '../edit-task-dialog-component/edit-task-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { ProjectPO, TaskPO } from '../../../../api/model';
+import { ProjectDto, TaskDto } from '../../../../api/model';
+import { CreateUpdateTaskDialogComponent } from '../create-update-task-dialog-component/create-update-task-dialog-component';
 
 
 @Component({
@@ -12,28 +12,26 @@ import { ProjectPO, TaskPO } from '../../../../api/model';
   templateUrl: './task-details-component.html',
   styleUrl: './task-details-component.scss'
 })
-export class TaskDetailsComponent {
+export class TaskDetailsComponent{
+
     readonly deleteTaskDialog = inject(MatDialog);
   readonly editTaskDialog = inject(MatDialog);
-  task: TaskPO | undefined;
-  project: ProjectPO | undefined | null;
+  task: TaskDto | undefined;
+  project: ProjectDto | undefined | null;
 
   @Input()
-  set selectedTask(value: TaskPO | undefined) {
-    console.log("set selected task: ", value);
-    this.task = value;
+  set selectedTask(value: TaskDto | undefined) {
+      this.task = value;
   }
 
   @Input()
-  set selectedProject(value: ProjectPO | undefined | null) {
+  set selectedProject(value: ProjectDto | undefined | null) {
     this.project = value;
   }
    
 
     public openDeleteTaskDialog() {
-      console.log("openDeleteTask Dialog: ", this.task);
     this.deleteTaskDialog.open(DeleteTaskDialogComponent, {
-      
       data: {
         taskId: this.task?.id,
         project: this.project
@@ -42,9 +40,11 @@ export class TaskDetailsComponent {
   }
 
   public openEditTaskDialog() {
-    this.editTaskDialog.open(EditTaskDialogComponent, {
+    this.editTaskDialog.open(CreateUpdateTaskDialogComponent, {
       data: {
-        taskId: this.task?.id
+        taskId: this.task?.id,
+        project: this.project,
+        task: this.task,
       }
     });
 

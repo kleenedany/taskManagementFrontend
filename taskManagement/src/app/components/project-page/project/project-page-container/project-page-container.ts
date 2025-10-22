@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { ProjectControllerService } from '../../../../api/project-controller/project-controller.service.gen';
+import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
-import { ProjectPO } from '../../../../api/model';
+import { ProjectDto } from '../../../../api/model';
 import { ProjectComponent } from '../project-component/project-component';
 import { TaskComponent } from '../../task/task-component/task-component';
 
@@ -14,18 +13,11 @@ import { TaskComponent } from '../../task/task-component/task-component';
   styleUrl: './project-page-container.scss'
 })
 export class ProjectPageContainer {
-  public shouldDetailsBeShown = false;
-  public selectedProjectSubject = new BehaviorSubject<ProjectPO | null>(null);
+  public selectedProjectSubject = new BehaviorSubject<ProjectDto | null>(null);
   selectedProject$ = this.selectedProjectSubject.asObservable();
 
 
-
-  showDetails(show: boolean) {
-    console.log("showDetails: ", show);
-    this.shouldDetailsBeShown = show;
-  }
-
-  showTasks(project: ProjectPO) {
+  showTasks(project: ProjectDto) {
     this.selectedProjectSubject.next(project);
   }
 

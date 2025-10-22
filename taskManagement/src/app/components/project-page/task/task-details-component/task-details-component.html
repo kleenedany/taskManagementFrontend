@@ -1,3 +1,15 @@
+    <h2>Task Details</h2>
     <button matButton="elevated" (click)="openDeleteTaskDialog()">Delete Task</button>
     <button matButton="elevated" (click)="openEditTaskDialog()">Edit Task</button>
 
+    <section>
+         @if(this.task && this.task.description) {
+             {{this.task.description}}
+        }   
+
+        @if(this.task && this.task.users) {
+            {{this.task.users}}
+        }
+    </section>
+
+   

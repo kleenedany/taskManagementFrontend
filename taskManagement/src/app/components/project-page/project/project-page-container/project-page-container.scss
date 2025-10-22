@@ -1,4 +1,10 @@
 .container {
     flex: 1;
-    height: 1000px;
+    width: 100%;
+    height: 90vh;
+    margin: 10px;
+}
+
+.content-area {
+    padding-left: 50px;
 }

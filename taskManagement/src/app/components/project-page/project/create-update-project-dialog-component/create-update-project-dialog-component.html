@@ -1,11 +1,17 @@
-<h2 mat-dialog-title>Create Project</h2>
+@if(this.showCreateDialog) {
+    <h2 mat-dialog-title>Create Project</h2> 
+} @else {
+    <h2 mat-dialog-title>Edit Project</h2>
+}
+
 <mat-dialog-content>
     <mat-form-field>
         <mat-label>Title</mat-label>
-        <input matInput [formControl]="title" required />
+        <input matInput [formControl]="title" [value]="this.projectTitle" required />
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button matButton="elevated" (click)="saveProject()">Save</button>
     <button matButton="elevated" mat-dialog-close>Close</button>
 </mat-dialog-actions>
+

@@ -1,8 +1,9 @@
 
-<section>
-    <button matButton="elevated" (click)="openCreateProjectDialog()">Create Project</button>
-    <button matButton="elevated" (click)="openDeleteProjectDialog()">Delete Project</button>
-    <button matButton="elevated" (click)="openEditProjectDialog()">Edit Project</button>
+<section class="projects-navigation">
+    <span><h2>Projects</h2></span>
+    <button matMiniFab (click)="openCreateProjectDialog()" class="margin-right"><mat-icon>add</mat-icon></button>
+    <button matMiniFab (click)="openDeleteProjectDialog()" class="margin-right"><mat-icon>delete</mat-icon></button>
+    <button matMiniFab (click)="openEditProjectDialog()" class="margin-right"><mat-icon>edit</mat-icon></button>
 </section>
 
 <section>
@@ -13,7 +14,5 @@
             <mat-list-option [value]="project.id" (click)="onChange(project.id)">{{project.title}}</mat-list-option>
         }
     </mat-selection-list>
-
-    Selected: {{projectsControl.value ? projectsControl.value[0] : 'None'}}
    </form>
 </section>
